@@ -10397,7 +10397,7 @@ p.upload-image img { height: 150px; left: 0px; object-fit: cover; position: abso
 .gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image { display: flex; height: 202px; justify-content: space-between; width: 228px; }
 .gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image img { border-radius: 12px; height: 202px; object-fit: cover; object-position: left bottom; width: 100%; }
 .gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image:last-of-type { position: relative; }
-.gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image:last-of-type .gallery-image-main-all { background: rgb(255, 255, 255); border-radius: 10px; bottom: 12px; position: absolute; right: 12px; }
+.gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image:last-of-type .gallery-image-main-all { background: rgb(255, 255, 255, 0.2); border-radius: 10px; bottom: 12px; position: absolute; right: 12px; }
 .gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image:last-of-type .gallery-image-main-all p { font-size: 16px; font-weight: 600; line-height: 16px; margin-bottom: 0px; padding: 12px; text-align: center; }
 .gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image:last-of-type .gallery-image-main-all a { border-radius: 10px; color: rgb(32, 32, 32); display: block; font-family: Montserrat; font-size: 16px; font-weight: 600; line-height: 16px; margin-bottom: 0px; padding: 12px; text-align: center; }
 .gallery-images s2a-report-section span mat-grid-list div mat-grid-tile s2a-markdown .gallery-images-container .row .five-image-container div.gallery-image:last-of-type .gallery-image-main-all a:hover { background: rgb(102, 47, 160); color: rgb(255, 255, 255); transition: 0.5s; }
@@ -15208,6 +15208,8 @@ mat-sidenav-content.mat-sidenav-content s2a-section mat-grid-tile .mat-figure s2
 <body>
     <body id="main_body"><img src="https://bidagent.xad.com/conv/268437?ts=1773677567781" class="d-none"><img src="https://p.xad.com?id=268437&amp;sid=7592612&amp;ts=1773677567781" class="d-none">
 
+      <div id="gallery-modal" class="gallery-modal"></div>
+
   
 
   <meta name="twitter:site" content="@martinemed"><meta name="twitter:card" content="summary_large_image"><meta property="og:title" content="Homes for Rent - Find Your Rental Home at Martine Med"><meta property="og:description" content="Explore single-family homes for rent with Martine Med. Enjoy stress-free living with included maintenance and support. Find a place to call home today."><meta property="og:image" content="/assets/common/images/social_sharing/social_sharing.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><link rel="canonical" href="/home">
@@ -15561,8 +15563,8 @@ Get the home you want and the value you deserve with Martine Med. Use our websit
           <img src="https://d7tpir7e6ppj.cloudfront.net/ec718f871bdcace9ebe4b78e9a788843f02997e11cc773ffca0f86abb6d63943/228x202" alt="">
 
 
-          <div class="gallery-image-main-all" name="see_all">
-            <a href="">See all pictures</a>
+          <div class="gallery-image-main-all" name="see_all" onclick="openGalleryModal()">
+            <a href="#">See all pictures</a>
           </div>
 
         </div>
@@ -16324,6 +16326,60 @@ Get the home you want and the value you deserve with Martine Med. Use our websit
         }
       });
 
+      // Store images globally for gallery
+      window.propertyImages = [];
+
+      // Open gallery modal with all images
+      function openGalleryModal() {
+        const modal = document.getElementById('gallery-modal');
+        if (!window.propertyImages || window.propertyImages.length === 0) return;
+
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'gallery-modal-close';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = () => closeGalleryModal();
+        closeBtn.setAttribute('aria-label', 'Close gallery');
+
+        const content = document.createElement('div');
+        content.className = 'gallery-modal-content';
+
+        window.propertyImages.forEach((img, idx) => {
+          const imgEl = document.createElement('img');
+          imgEl.className = 'gallery-modal-img';
+          imgEl.src = img;
+          imgEl.alt = 'Property image ' + (idx + 1);
+          content.appendChild(imgEl);
+        });
+
+        modal.innerHTML = '';
+        modal.appendChild(closeBtn);
+        modal.appendChild(content);
+        modal.classList.add('show');
+
+        modal.onclick = (e) => {
+          if (e.target === modal) {
+            closeGalleryModal();
+          }
+        };
+      }
+
+      function closeGalleryModal() {
+        const modal = document.getElementById('gallery-modal');
+        modal.classList.remove('show');
+      }
+
+      const staticData = {
+        address: "Ridge Forest Dr Unit A",
+        badge: "move-in ready",
+        price: 1485,
+        beds:2,
+        baths:2.5,
+        sqft:2400,
+        description:"The very best property in Ohio",
+        images:["https://d7tpir7e6ppj.cloudfront.net/70e7a8cc243bb6f456d2ea2eefbe065d9d62dc0ee80564d56f25228f21fec9e8/636x416","https://d7tpir7e6ppj.cloudfront.net/2aae73e7c5e83fa4d1985f94087c061b08a4e7b865140c7443b81f967ad064bb/228x202","https://d7tpir7e6ppj.cloudfront.net/307c93e8c42e6c4bf7e9e2093d3ddbe148635231f49fdcd1431ec4c7ef78388c/228x202", "https://d7tpir7e6ppj.cloudfront.net/6f16115e3beaab2d191f3be5d0373d7af109184b0e74c761f2ded33594140aaf/228x202", "https://d7tpir7e6ppj.cloudfront.net/ec718f871bdcace9ebe4b78e9a788843f02997e11cc773ffca0f86abb6d63943/228x202"],
+        amenities:["Ceiling Fan", "Dish Washer"]
+      };
+
       // Mobile Swipe State - Declare at top level
       let mobileSwipeState = {
         currentImageIndex: 0,
@@ -16353,13 +16409,13 @@ Get the home you want and the value you deserve with Martine Med. Use our websit
             randomData = JSON.parse(localStorage.randomProperty);
           } else {
            hideLoading();
+           updatePropertyContent(staticData)
             return; // Use static content
           }
           
         }
 
         try {
-
           if(! propertyId && randomData ){
             updatePropertyContent(randomData);
             hideLoading();
@@ -16555,6 +16611,7 @@ Get the home you want and the value you deserve with Martine Med. Use our websit
           mobilePrice2.innerHTML = `<b>$</b>${data.price.toLocaleString()}<span>/month</span>`;
         }
         // Beds, Baths, Sqft
+        const mobileBaths = document.querySelector("#download-image > div > div.col-lg-5.col-md-5.col-sm-12.col-12.pl-0 > div.mobile-full-property-card.d-lg-none.d-md-none.d-sm-block.d-block > div.property-card > div.heading-icon-box > div.text");
         if (data.beds) {
           const bedsEl = document.querySelector("#download-image > div > div.col-lg-7.col-md-7.col-sm-12.col-12.gallery-image-lg > div.property-description > div > div > div.cards > div:nth-child(1) > p");
           if (bedsEl) bedsEl.textContent = `${data.beds} bedrooms`;
@@ -16566,6 +16623,10 @@ Get the home you want and the value you deserve with Martine Med. Use our websit
         if (data.sqft) {
           const sqftEl = document.querySelector("#download-image > div > div.col-lg-7.col-md-7.col-sm-12.col-12.gallery-image-lg > div.property-description > div > div > div.cards > div:nth-child(3) > p");
           if (sqftEl) sqftEl.textContent = `${data.sqft.toLocaleString()} SqFt`;
+        }
+
+        if( mobileBaths && data.baths && data.beds && data.sqft ){
+          mobileBaths.textContent = `${data.beds} Beds . ${data.baths} Baths . ${data.sqft} SqFt`;
         }
         // Description paragraphs
         const descSelectors = '.description, .SummaryText__StyledText-sc-1mv6miq-0, [class*="desc"], [class*="summary"], p';
@@ -16593,6 +16654,9 @@ Get the home you want and the value you deserve with Martine Med. Use our websit
 
         const gallery = document.querySelector(".five-image-container")
 
+        // Store images globally
+        window.propertyImages = data.images || [];
+
         if( gallery && data.images?.length ){
           const galleries = gallery.querySelectorAll(".gallery-image");
           const images  = data.images.slice(1, data.images.length);
@@ -16606,7 +16670,6 @@ Get the home you want and the value you deserve with Martine Med. Use our websit
             }
           })
         }
-       
         initMobileSwipe(data);
        
         
