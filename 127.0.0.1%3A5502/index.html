@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Martine | Premium Property Rentals</title>
+    <!-- Google Fonts & simple reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a2c3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* header & navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #1e3c3f 0%, #2b6c6f 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: url("logo1.png");
+            /* object-fit: cover; */
+            background-size: cover;
+            background-position: center center;
+            height: auto;
+        }
+        .logo span {
+            color: #e2a526;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #2c4a4e;
+            transition: color 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #e2a526;
+        }
+
+        .nav-cta {
+            background-color: #1e3c3f;
+            padding: 10px 24px;
+            border-radius: 40px;
+            color: white !important;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background-color: #e2a526;
+            color: #1e3c3f !important;
+        }
+
+        /* hero section */
+        .hero {
+            background: linear-gradient(105deg, #f9f6ef 0%, #eef2f0 100%);
+            border-radius: 48px;
+            margin: 20px 0 48px 0;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 56px 48px;
+        }
+
+        .hero-title {
+            font-size: 3.6rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: #1a2c3e;
+            margin-bottom: 20px;
+        }
+
+        .hero-title i {
+            color: #e2a526;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #4a5b66;
+            margin-bottom: 32px;
+            max-width: 90%;
+        }
+
+        .search-card {
+            background: white;
+            border-radius: 56px;
+            padding: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.08);
+            margin-top: 16px;
+        }
+
+        .search-input {
+            flex: 3;
+            display: flex;
+            align-items: center;
+            background: #f8f9fc;
+            border-radius: 48px;
+            padding: 6px 20px;
+            gap: 12px;
+        }
+
+        .search-input i {
+            color: #9aaebf;
+            font-size: 1.2rem;
+        }
+
+        .search-input input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            padding: 14px 0;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .search-btn {
+            background: #e2a526;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 48px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e2a2e;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover {
+            background: #c48b1a;
+            transform: scale(0.97);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 40px;
+        }
+        .stat h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1e3c3f;
+        }
+        .stat p {
+            font-size: 0.9rem;
+            color: #5f727e;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 32px;
+            object-fit: cover;
+            box-shadow: 0 25px 40px -18px rgba(0,0,0,0.2);
+        }
+
+        /* featured properties */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin: 64px 0 32px 0;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .section-header a {
+            color: #e2a526;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: 0.2s;
+        }
+        .section-header a:hover {
+            border-bottom-color: #e2a526;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            box-shadow: 0 12px 26px -8px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0ea;
+        }
+        .property-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 35px -12px rgba(0,0,0,0.12);
+            border-color: #e9e2d4;
+        }
+
+        .property-img {
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .property-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: #1e3c3f;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .property-details {
+            padding: 24px 20px 20px;
+        }
+        .property-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1e3c3f;
+            margin-bottom: 8px;
+        }
+        .property-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #6c7a89;
+        }
+        .property-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+        }
+        .property-features {
+            display: flex;
+            gap: 18px;
+            border-top: 1px solid #edede5;
+            padding-top: 16px;
+            margin-top: 8px;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #405d66;
+        }
+
+        /* services / why us */
+        .why-us {
+            background: #fafaf7;
+            border-radius: 48px;
+            margin: 80px 0;
+            padding: 64px 48px;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        .service-icon {
+            background: #ffffff;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 2rem;
+            color: #e2a526;
+            box-shadow: 0 12px 20px -8px rgba(0,0,0,0.05);
+        }
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .service-desc {
+            color: #5b6e7c;
+            line-height: 1.4;
+        }
+
+        /* testimonial simple */
+        .testimonial {
+            background: linear-gradient(120deg, #1e3c3f 0%, #2b5f62 100%);
+            border-radius: 48px;
+            padding: 56px 48px;
+            margin: 40px 0 64px;
+            color: white;
+        }
+        .testimonial-flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+        .testimonial-text {
+            flex: 2;
+        }
+        .testimonial-text i {
+            font-size: 2.8rem;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .testimonial-quote {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .testimonial-stars {
+            color: #ffcd4a;
+            margin-top: 12px;
+        }
+        .testimonial-img {
+            flex: 1;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 18px 30px -10px rgba(0,0,0,0.2);
+        }
+        .testimonial-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* footer */
+        footer {
+            background-color: #0e2629;
+            color: #cfdfe3;
+            border-radius: 40px 40px 0 0;
+            padding: 56px 0 32px;
+            margin-top: 60px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .footer-col p, .footer-col a {
+            color: #bfd4d9;
+            text-decoration: none;
+            line-height: 1.7;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .footer-col a:hover {
+            color: #e2a526;
+        }
+        .social-icons {
+            display: flex;
+            gap: 18px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            background: #2b5559;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+        .social-icons a:hover {
+            background: #e2a526;
+            color: #0e2629;
+        }
+        .copyright {
+            border-top: 1px solid #2f5559;
+            padding-top: 28px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                padding: 40px 24px;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .search-card {
+                flex-direction: column;
+                background: transparent;
+                box-shadow: none;
+                gap: 12px;
+            }
+            .search-input {
+                background: white;
+            }
+            .search-btn {
+                justify-content: center;
+            }
+            .why-us, .testimonial {
+                padding: 40px 24px;
+            }
+        }
+        @media (max-width: 550px) {
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .section-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+        button, .search-btn {
+            cursor: pointer;
+        }
+        .no-click-alert {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- navigation -->
+        <nav class="navbar">
+            <div class="logo">Martine<span>.</span>Med</div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Listings</a></li>
+                <li><a href="#">Neighborhoods</a></li>
+                <li><a href="#">Agents</a></li>
+                <li><a href="#" class="nav-cta">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- hero section -->
+    <div class="container">
+        <div class="hero">
+            <div class="hero-grid">
+                <div>
+                    <h1 class="hero-title">Find your perfect <i>rental</i><br> in the city you love</h1>
+                    <p class="hero-desc">Discover hand-picked apartments, lofts, and homes — flexible leases, verified listings, and zero hassle.</p>
+                    <div class="search-card">
+                        <div class="search-input">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" placeholder="Search by city, neighborhood, or property name..." id="searchLocation">
+                        </div>
+                        <button class="search-btn" id="heroSearchBtn"><i class="fas fa-search"></i> Search rentals</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat"><h3>2,500+</h3><p>Active rentals</p></div>
+                        <div class="stat"><h3>98%</h3><p>Happy tenants</p></div>
+                        <div class="stat"><h3>24/7</h3><p>Support team</p></div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format" alt="Modern luxury apartment living room">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- featured properties section -->
+    <div class="container">
+        <div class="section-header">
+            <h2>✨ Featured rental properties</h2>
+            <a href="#">View all listings →</a>
+        </div>
+        <div class="property-grid" id="propertiesGrid">
+            <!-- dynamic property cards will be populated, but we also prefill with static examples for immediate display -->
+        </div>
+    </div>
+
+    <!-- Why choose us -->
+    <div class="container">
+        <div class="why-us">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <h2 style="font-size: 2rem;">Why rent with Martine Med?</h2>
+                <p style="color: #4d6a73; max-width: 600px; margin: 12px auto 0;">Transparent, tenant-first approach — we redefine renting experience.</p>
+            </div>
+            <div class="why-grid">
+                <div><div class="service-icon"><i class="fas fa-shield-alt"></i></div><div class="service-title">Verified Listings</div><div class="service-desc">Every property inspected, fraud-free, 100% legit.</div></div>
+                <div><div class="service-icon"><i class="fas fa-headset"></i></div><div class="service-title">24/7 Maintenance</div><div class="service-desc">Dedicated support & on-call repairs.</div></div>
+                <div><div class="service-icon"><i class="fas fa-file-signature"></i></div><div class="service-title">Smart Leases</div><div class="service-desc">Digital contracts, online payments, renewals in 1-click.</div></div>
+                <div><div class="service-icon"><i class="fas fa-map-marked-alt"></i></div><div class="service-title">Virtual Tours</div><div class="service-desc">Walkthrough properties from anywhere.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- testimonial -->
+    <div class="container">
+        <div class="testimonial">
+            <div class="testimonial-flex">
+                <div class="testimonial-text">
+                    <i class="fas fa-quote-left"></i>
+                    <div class="testimonial-quote">"Martine Med made finding a rental stress-free. Within a week we secured a stunning downtown apartment — the team handled everything."</div>
+                    <div class="testimonial-author">— Sophia Ramirez, Verified Renter</div>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                </div>
+                <div class="testimonial-img">
+                    <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=500&auto=format" alt="Happy tenant in modern apartment">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Martine Med Rentals</h4>
+                    <p>Elevating the rental experience through trust, design, and innovation.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <a href="#">Rentals</a>
+                    <a href="#">Rooms & Shares</a>
+                    <a href="#">Furnished homes</a>
+                    <a href="#">Short-term</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="#">Renter’s guide</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Tenant rights</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone-alt"></i> +1 (218) 478-4036</p>
+                    <p><i class="fas fa-envelope"></i> home36mgt@gmail.com</p>
+                    <p><i class="fas fa-building"></i> 412 Loft Ave, NYC</p>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Martine Med Real Estate Rentals — Your home, reimagined.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // property data for dynamic rendering
+        const properties = [
+    {
+        id: 1,
+        images: [
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format",
+            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?w=600&auto=format",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&auto=format",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format",
+            "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format"
+        ],
+        badge: "Just added",
+        price: 1490,
+        period: "/month",
+        address: "Sunset Loft · Arts District",
+        location: "Downtown, Los Angeles",
+        beds: 2,
+        baths: 2,
+        sqft: 1150
+    },
+    {
+        id: 2,
+        images: [
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format",
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format",
+            "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&auto=format",
+            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?w=600&auto=format"
+        ],
+        badge: "Popular",
+        price: 1850,
+        period: "/month",
+        address: "Minimalist 1BR + Office",
+        location: "Williamsburg, Brooklyn",
+        beds: 1,
+        baths: 1,
+        sqft: 780
+    },
+    {
+        id: 3,
+        images: [
+            "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format",
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&auto=format",
+            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?w=600&auto=format"
+        ],
+        badge: "Pet friendly",
+        price: 1200,
+        period: "/month",
+        address: "Modern 3BR with Garden",
+        location: "Culver City, CA",
+        beds: 3,
+        baths: 2.5,
+        sqft: 1670
+    },
+    {
+        id: 4,
+        images: [
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format",
+            "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format",
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&auto=format",
+            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?w=600&auto=format"
+        ],
+        badge: "New",
+        price: 1190,
+        period: "/month",
+        address: "High-Rise Panoramic View",
+        location: "South Loop, Chicago",
+        beds: 2,
+        baths: 2,
+        sqft: 1020
+    },
+    {
+        id: 5,
+        images: [
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format",
+            "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&auto=format",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&auto=format",
+            "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?w=600&auto=format",
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format",
+            "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format"
+        ],
+        badge: "Featured",
+        price: 1890,
+        period: "/month",
+        address: "Rooftop Garden Suite",
+        location: "Capitol Hill, Seattle",
+        beds: 2,
+        baths: 2,
+        sqft: 1250
+    },
+    {
+        id: 6,
+        images: [
+            "https://images.unsplash.com/photo-1448630360428-65456885c650?w=600&auto=format",
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&auto=format",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&auto=format",
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&auto=format",
+            "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&auto=format",
+            "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&auto=format"
+        ],
+        badge: "Luxury",
+        price: 1500,
+        period: "/month",
+        address: "Penthouse with Terrace",
+        location: "South Beach, Miami",
+        beds: 3,
+        baths: 3,
+        sqft: 2100
+    }
+];
+        function renderProperties() {
+            const grid = document.getElementById('propertiesGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            properties.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = 'property-card';
+                card.innerHTML = `
+                    <div class="property-img" style="background-image: url('${prop.images[0]}'); background-size: cover;">
+                        <div class="property-badge">${prop.badge}</div>
+                    </div>
+                    <div class="property-details">
+                        <div class="property-price">$${prop.price.toLocaleString()}<span>${prop.period}</span></div>
+                        <div class="property-title">${prop.address}</div>
+                        <div class="property-location"><i class="fas fa-map-pin"></i> ${prop.location}</div>
+                        <div class="property-features">
+                            <div class="feature"><i class="fas fa-bed"></i> ${prop.beds} beds</div>
+                            <div class="feature"><i class="fas fa-bath"></i> ${prop.baths} baths</div>
+                            <div class="feature"><i class="fas fa-ruler-combined"></i> ${prop.sqft} sqft</div>
+                        </div>
+                    </div>
+                `;
+                // add simple click alert for demo (real estate demo friendly)
+                card.addEventListener('click', () => {
+                    localStorage.randomProperty = JSON.stringify(prop);
+                    location.href = "/homes-for-rent";
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        // interactive search demo
+        function handleSearch() {
+            const searchInput = document.getElementById('searchLocation');
+            const query = searchInput ? searchInput.value.trim() : '';
+            if (query === "") {
+                alert("🔍 Start exploring: type a neighborhood or city (e.g., Brooklyn, Los Angeles) to see matching properties.");
+                // in a real app we filter, here we show demo overlay message and filter only if query matches location substring
+                const filtered = properties.filter(prop => prop.location.toLowerCase().includes(query.toLowerCase()));
+                if(filtered.length === 0 && query !== "") {
+                    alert(`No exact matches for "${query}" yet, but our team will help you! Browse featured homes below.`);
+                } else if(query !== "") {
+                    alert(`We found ${filtered.length} property/properties near "${query}". Schedule a tour today!`);
+                }
+            } else {
+                const lowerQuery = query.toLowerCase();
+                const matches = properties.filter(p => p.location.toLowerCase().includes(lowerQuery) || p.title.toLowerCase().includes(lowerQuery));
+                if(matches.length > 0) {
+                    alert(`🏡 Great news! ${matches.length} rental(s) match "${query}". Scroll to see featured picks or contact us for more.`);
+                } else {
+                    alert(`🌸 No exact match for "${query}" yet. But our new listings arrive weekly. Want us to alert you?`);
+                }
+            }
+        }
+
+        // make search button and pressing Enter in input work
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProperties();
+
+            const searchBtn = document.getElementById('heroSearchBtn');
+            if (searchBtn) {
+                searchBtn.addEventListener('click', handleSearch);
+            }
+            const searchField = document.getElementById('searchLocation');
+            if (searchField) {
+                searchField.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleSearch();
+                    }
+                });
+            }
+
+            // also add small demo interactive for property cards in case extra?
+            // footer social and nav demo smooth
+            const allNavLinks = document.querySelectorAll('.nav-links a, .footer-col a');
+            allNavLinks.forEach(link => {
+                if (link.getAttribute('href') === '#' || link.getAttribute('href') === '#') {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert("✨ Martine experience: Explore our full listings & contact page coming soon! For now, check our featured homes.");
+                    });
+                }
+            });
+            const viewAllLink = document.querySelector('.section-header a');
+            if(viewAllLink) {
+                viewAllLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    location.href = "/rental-homes";
+                    //alert("📋 Browse all 2,500+ rental properties — our agents will reach out to match you with your dream home.");
+                });
+            }
+        });
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

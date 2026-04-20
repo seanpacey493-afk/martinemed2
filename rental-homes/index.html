@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martine Med - Find Your Next Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        /* Navigation Header */
+        .navbar {
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            width: 250px;
+            height: 48px;
+            object-fit: cover;
+        }
+
+        .logo span {
+            color: #764ba2;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #667eea;
+        }
+
+        .nav-menu .dropdown-toggle::after {
+            content: ' ▼';
+            font-size: 10px;
+            margin-left: 4px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .login-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .save-favorites-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .save-favorites-btn:hover {
+            background: #764ba2;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 360px;
+            background: white;
+            padding: 30px 20px;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+        .checkbox-group {
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .options-section {
+            margin-bottom: 25px;
+        }
+
+        .options-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .apply-search-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .apply-search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .content-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Properties Grid */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .property-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .property-image-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .property-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: white;
+            color: #667eea;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .property-badge.available-soon {
+            color: #667eea;
+        }
+
+        .property-badge.coming-soon {
+            color: #764ba2;
+        }
+
+        .property-badge.apply-today {
+            color: #2196F3;
+        }
+
+        .property-favorite {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .property-favorite:hover {
+            transform: scale(1.1);
+        }
+
+        .property-favorite.liked {
+            color: #e74c3c;
+        }
+
+        .property-specs-top {
+            display: flex;
+            gap: 20px;
+            padding: 12px 16px;
+            background: #f9f9f9;
+            font-size: 13px;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .property-content {
+            padding: 18px 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .property-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .property-fee-text {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .property-address {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .property-specs-bottom {
+            display: flex;
+            gap: 18px;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #666;
+            margin-top: auto;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f0f0f0;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 15px;
+            color: #999;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img name="home" src="/logo2.png" class="logo" alt="first key homes logo">
+          
+        </div>
+        <div class="navbar-right">
+            <a href="#" class="login-link">Log In: My Favorites</a>
+            <button class="save-favorites-btn">Save Favorites</button>
+        </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Clear filters</div>
+
+            <input type="text" class="search-box" id="searchBox" placeholder="Search">
+
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="nearMe">
+                    Search Near Me
+                </label>
+            </div>
+
+            <div class="options-section">
+                <div class="options-toggle">
+                    Options
+                    <span>▼</span>
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="specialOffer">
+                    Special Offer
+                </label>
+                <label>
+                    <input type="checkbox" id="moveInReady">
+                    Move-in Ready
+                </label>
+                <label>
+                    <input type="checkbox" id="newConstruction">
+                    New Construction
+                </label>
+                <label>
+                    <input type="checkbox" id="availableSoon">
+                    Available Soon
+                </label>
+            </div>
+
+            <button class="apply-search-btn">
+                <i class="fas fa-check"></i> Apply and Search
+            </button>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content">
+            <div class="content-top">
+                <div></div>
+                <div class="view-toggle">
+                    <button class="view-btn active">
+                        <i class="fas fa-th"></i> Grid
+                    </button>
+                    <button class="view-btn">
+                        <i class="fas fa-map-marker-alt"></i> Map
+                    </button>
+                </div>
+            </div>
+
+            <div id="propertiesContainer" class="properties-grid"></div>
+            <div id="loadingIndicator" class="loading" style="display: none;">
+                <span class="loading-spinner"></span>Loading more properties...
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mock data
+        const cities = ['Denver', 'Boulder', 'Aurora', 'Fort Collins', 'Lakewood', 'Arlington', 'Advance'];
+        const states = ['CO', 'NC', 'CA', 'TX', 'FL'];
+        const bedrooms = [1, 2, 3, 4];
+        const bathrooms = [1, 1.5, 2, 2.5, 3];
+        const badges = ['Available Soon', 'Coming Soon', 'Apply Today', 'Move-In Ready', 'Special Offer'];
+
+        let allProperties = [];
+        let filteredProperties = [];
+        let isLoading = false;
+
+        function getRandomBadge() {
+            return badges[Math.floor(Math.random() * badges.length)];
+        }
+
+        function getBadgeClass(badge) {
+            if (badge.includes('Available')) return 'available-soon';
+            if (badge.includes('Coming')) return 'coming-soon';
+            if (badge.includes('Apply')) return 'apply-today';
+            return 'available-soon';
+        }
+
+        // Generate random property
+        function generateProperty() {
+            const price = Math.floor(Math.random() * (1860 - 1500 + 1)) + 1500;
+            const city = cities[Math.floor(Math.random() * cities.length)];
+            const state = states[Math.floor(Math.random() * states.length)];
+            const bedroom = bedrooms[Math.floor(Math.random() * bedrooms.length)];
+            const bathroom = bathrooms[Math.floor(Math.random() * bathrooms.length)];
+            const sqft = Math.floor(Math.random() * (3500 - 1100 + 1)) + 1100;
+            const badge = getRandomBadge();
+            const Images = [
+    [
+        "https://d3udfg0qwoce05.cloudfront.net/34365910d9cdda3371530db1c8dd19c7ac61b0b6b9b84891d46d551cc40f2b2e/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/436c8f07f85dd0d39b2157c99bf1e506aec5b4a40af1476044ac05ef6c05a8d0/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/4d4d3052c74a7495ef450ef15293ad772432406dbaa79b79391ff573796a24ba/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/bc26157cfa45a19cdde521e94ce64a6ed5667b1ebd7bf4dae154ed9892c9d8c2/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/6b058cbe57cf7287c1f5af3b82e74f6ca1f0d9c735a701c19abca7b8571feccf/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/23a4bd8535d55b5ea1f08324ce0495dd9b52cf06a7bcdc99347393690c8bfc58/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/39553e9ab4f23a87f1e4d3808a6be3cf3316773e43e030dff476068694b6c035/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/1d0c3d8767c1f995e0d89ea8288382ade1f1ab3b2080c59a966d55916eca9c99/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/484d4847ba8f4618ea0981cdfc5f080b9e579d5abbafbe2a22d1f5076d16cb05/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/30dfbe1b8312cf5c2f4030a702e966f197d34245079781cbc3e6289481a94c61/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/a3c44e04a24eb517f629191deeb84b53c5ce2a659bb5161715329a16bac18822/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/93989108c855ed3a28ba5a141c870060bd48256ec32f0b063efd0ddebf32283c/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/ba46c14a1b804dfbf23902c3e07415fc7f5fd1e74d861644f5daf192ae26f61b/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/e3275f9cc1f1f8ef82649c6762fe3267171772c2da30628dfa984a5d0fb0927c/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/ef387f458949b7da1d74e9d5b4e31c5f9319c278eba439ee704a0c982af5ce63/327x226"
+    ],
+    [
+        "https://d3udfg0qwoce05.cloudfront.net/18fc363625af613a6139ce6a64175104489258820d8b7e9cbbfa1210b8e5650e/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/db783ef33496c0958959d78aad5a7a9bca85f9885a5f69fa52c958400329256b/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/741066aac8f03177ddce645e9aae499286e6b6b2c93ed50069243800fd3b202f/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/bdbbcba57f5c63d1d7158762b7f53c5bb4055c34bab7d7de2aaab823a6d85029/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/abf1c932439f7129c864330f46cee9e4808e9a032481e8ad58865baba38906fb/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/d85042366314092c7f5b9f700e17812c0f96b078640e3aab6102479a6f2f8b6c/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/371c8fe800ab4a0ba15708ea4dd250d0a64a6ac3e4406f593a6566c752f287a9/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/1690aa7990d5f910ce858900be4f5de17b9f8e84373430ac5fbb2372044615f0/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/0f90ff6c409849899ac1b153ed13c6d517f7c9fb2707095580324391da581dd5/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/51e345f25bb9be133e78ccc097849861421f40def45ab368266712ee511173a4/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/c8d8ca4f3cc014b849b1392d4f07c0eed7da097ab44ace395e659a3dec1029df/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/8b472d6fe143425f1b8e250494b4e225efd4ddbc9c54d7bef95c92fdb9b0374b/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/cf64335a43b97cb44cfa09ed092841e8e704ddf7f2976b54a1055428f216f47e/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/8277366eb3f0b361262735820fc58bca64e688de1357ab7830df2d9c9832093f/327x226",
+        "https://d3udfg0qwoce05.cloudfront.net/2a978a7cc9a842f6b5e9388f7698636089b6ee900ec6bcf88880b2c2e9bc3b66/327x226"
+    ],
+    [
+        "https://d7tpir7e6ppj.cloudfront.net/c532e7e624f381ff7f5b7afed7485605b11041973749a82281ceb4296d482554/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/138aafb0b3809339311471a547c1157a8a0b025466d99ec639af228a3ad8bd49/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/5e53003977ac94393edaf58e0ff181a3e8ce6fd226cb2dec9275f1feb2d9b04f/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/3b5367994c305c79158f57d68bfa6332883a723788219c7d2921d9c14f54fdf7/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/8e43cda8f18f8582bbbc3a69a17aff7be9c207521570b6daad9808e2e11351ca/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/e565d2e27c078e5066f081de19099114a1d2b33730039a19ad240bce4ee46391/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/5a107df931427c715bbd4a2a0c730a8e05725e985540a671e8e29cb17e6bb87b/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/048931baf56502edcadc550e0622b7101b457b69454f65073eda32ed8404849b/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/4a9dc5d2996b5783a6e54069465673ccb3f5041de2e73cf66738ef4c5c8bfd32/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/5f8cb31e2e6a1d8e28f425974eb87f968959bc5fa0c1b082652f7a95f84c57ad/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/38d258f28ce19bb9e880df68584ffde7cf2cac96235a916d83289ea9406def17/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/89b409483a87960151a4f60671893d8abfb30d0fa1659bd1fae86fa3d9978edf/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/3a73fb2447ea86fedc893e92c1dd7d927784f1af4ab1d7316f9958e4e2897c35/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/ccc4c9e0b548a763a913b686eb5dec66dfe73cbbd3f865ce15ff843c3a95b000/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/1acd67324366681400d17d55dd84ef5828aad946e1fcd1e28a9376d0c1c4fe0c/327x226"
+    ],
+    [
+        "https://d7tpir7e6ppj.cloudfront.net/8e4349356e378260089f968ad9f59d9e96c28047c39514c164c938940cf029ac/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/3dc3258c34c2a25f0367902264abbef809d84e850bc5f62cb118a8f5533b90f1/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/fc7002854770cb03834132af6adab3db2ae0933cc1ae6e448929e11d7e15bfa0/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/4f0f9b561b5cbe3591c16c21e0a5775e97a3f46c4bfe72ebfb81f5f72cdb6f6e/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/96127c45bcfdf5f6563d42a84409c3d6674f52160baa4b1b7a2dcbd795ad9bcc/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/316af8b55b0028be7159b40f0a8f568a03b8d0f04ac212337a79f2f141368285/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/1627c770a1da277c5799e24ef9b6391fa0892712e32490819faa29810338a7ef/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/d2dda179a4ef36aa945ce1e15f32d8d342ad3c16836d0ae58f99b9788fc6a809/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/4f8222c5978f43e43433aaabed54dd80b1f60cb7d34bd02b9c12f511cc0f63d6/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/60ecb0e163c5456618ab580071020f41506ccb0c30a9d58be0042efb7ca12dd0/327x226"
+    ],
+    [
+        "https://d7tpir7e6ppj.cloudfront.net/ae4d702bc813e2feeab79f651f42a13943eb46411f8cf02c397665ed110fb9e4/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/df72813596381bf05f848f23adc68135060b6fa32b9c36195177555a305b043c/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/126e998faf0827aa3b513476f78fba97895a6c8bc9b4f6b56e4ec0354dbf3a98/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/c9bc4f1f9ade9f7306304d80e017e3e91c8fedf863cb73d889a3b043ce6835f6/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/151e5dc0bc736f291f431f0e7c9ab6ad76e843b286f8e485351e72974a33ace0/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/ce11352cde3a06a79b86fbbc54004b1ae2e5bc559a6b450467ebd461e881c7ba/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/e8b098cbd7a2f2b8771a7b619e11520372330e169f7fdaef92ecba71ffd8a291/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/dfbea9c964eab50c9809559c99ec5063fb5b71b87e4e470b9871055d6942d890/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/870c93c194047daf5a285958dc48d51d937460767842d11112ad332d821e4cb0/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/892f8c1ca283051c404acceb0a9bb0d158a1372871803b0696d91d35da02f57e/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/a795eb7d6993eff020076d62b8cb76cf98a8386f41de5f677d8dcd260ef16919/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/3e7fc2afb879cc673131df886d516c9979418e2127420459daa4a1ac97431a50/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/826b46d9144159ab4bce7d67ce9f7ff11c7b7499963680e3e957092a27eddecf/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/6b06d8b01a6260d26cc370d9dec008435a0884108ca92f12917db97ca42f39f1/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/a2d436c016b2dc68a4243f7b3c01f0f9ed9bb02d55ca764b7a44fcdc574c75d1/327x226"
+    ],
+    [
+        "https://d7tpir7e6ppj.cloudfront.net/2352cd94fccd7d6d9f55f8d3c490311ec15432f93457e505df90c1d9f951eb65/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/87aceb08d7e4e114afc04aec548731dadd1309c7c9bf3b9f58cbfa915ec285f2/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/43f0c3ff78574ccbd0a656353789d8a9929f156a39ae52df8f3c6e2d15559b54/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/aa14aeccf5781f0b470a5dbf0dd2e12267d3ee72828b4708640deb33751905e3/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/67d8ac4f2bf6e8f5f1fe02022cefc8b8813cba5dcb74207ed87a30179819a802/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/31c2a7958c42e66878e3c340482bd72e311b92f4aeee015a709506012c6b730e/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/8c87c6bce3980e41df7eba6792443ecfb23101240e81ef1ee784bcc98951d226/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/8128e55d78f0548e60e5135af378fdb995ed8859463edab0df5a6cdc64d1f877/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/808d91be0f3db89329ad4bdbec456ff62d50ee5532f0bc7f6757a2d224b994a3/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/fe100bbbadf0c1de8e435fc9e44066f621e2f1a92c0d21e6c522a8e58a371bb3/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/fd423cbb7754646556e927963598be594ca1f7f98d6058353270e28c079f56be/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/ecfcf6e8e5cd36372b90a45a9fbcd86afe04ec33b6a7795169dbeb0d0f756599/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/c82fb06c74bf0f6a358adbec820ce8a3f48e0ab019b2043676c10fcba90211a1/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/819443e3533b900f9d49342df79c9841eaaff785db6be906b71da72fc475275e/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/10bcd4bffeeaa4e0cd4c7fc6ddba4c96826cda092a359bb5564a1a38a620b146/327x226"
+    ],
+    [
+        "https://d7tpir7e6ppj.cloudfront.net/e89e823c4fade922fb60c006d92842d80d1bd6501fe85eba2a9448e46cb49aa6/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/a220c7f17ee37e74b084f0ec988316318f0b4b80a3ac3ea4af282db0e5bf4ef3/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/769bd6b33ad0db2d7fc5d8f45222982b35c07cd9422e1ba74397582c7411ae81/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/231bf3d8d70f217d0b9d24c8d30546c76b2f7a8562b99220dcdc46ed5bb7d76d/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/f918d74758d4487c9ce0ab96c39ed9a590f20f17ccb4340afba9e314d7fc93f2/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/23f9940f972bf0d3d582c3c8b9df520ae5890b6e08e93d17baf44cd5a417434c/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/e1d150f40ad1a433085ec5891ba36005704b2ca462abd7075b61bff3acede394/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/fb78883dad826ae3bd0d91e85cf0c384a07f1a316b408bf8aaed39f4c105f28c/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/bab449c442d83345dd297d6e2cd217cb09d381f06b611259dc9c9c44d1951130/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/5a235fbf0f2098e0b5acafd45732f5480e939adcec71060a750aa638a603ae5a/327x226"
+    ],
+    [
+        "https://d7tpir7e6ppj.cloudfront.net/08ce540425e0710629f244e207028724eeaaac29438c153626e9ac2c01733f45/327x226"
+    ],
+    [
+        "https://d7tpir7e6ppj.cloudfront.net/72c1bc2af5646a951b12d08207b0bfcfae1cd1a059eb71ab9403f576830d127e/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/9357e0f3b3d05d1e3d0f4d689b6e0a577643054a352dc861e29cbf2557f29950/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/12b1031155288dd796057ba3573142e09490d23d5500cf604f43173590d5750c/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/b8ced7ddc66e93a2d0c92ce7c5372f92a4869f5cff4141a1fc58d1c75b6fa92a/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/d176142cfe431ad73bd5888f415ed7fc7efa3d5bd65c2a17b46e1844ff0c8be4/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/4ad138c3a2e7f90f4a95e95e0538d5f66e2ce8822af79236ce18e0495f70ae9e/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/5b3916f637bf766ad2f61f226b761801f1ce4609e9f6a2667e701ddd898b6801/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/1a89e30cab91dc4473a76234c51bfc0aca0624bb2da69a1192438acedd501705/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/e1418f6ad98dea74c0b882b9c526ba09ca658b086392454d8c08ea0e094647b5/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/9f13ae3458a6d88d4726bac9494803bd5cda3fc2df0aa9a45a8f24e6a8b8095b/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/02425fbf82bc999601875e19e8e3f26d9fb30f3142327e945d998b51e4a76368/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/7915f82ad3ded92e8f03d916a4b1476c998e9549d30bc4d030ae2f80eaac250b/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/b0ab12a50ad2916ad1647a0ac0ff46fcf57cf7ca3b8576b35c75dfaeb1077e5d/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/c1ff52720f6ae317e1eda36c8ed2a0e86451914c733e5929786e15e8dbb1bc9b/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/57cd52a5aca4348bd3dc22b7103283fa4b25441a41c9b432b5ed9e6c4548de94/327x226",
+        "https://d7tpir7e6ppj.cloudfront.net/a4b9e3bf27570a4ddd79d29540f418cf7b3a366ca89d9513f8aed4a0bc49fe24/327x226"
+    ]
+];
+
+            return {
+                id: Math.random().toString(36).substr(2, 9),
+                address: `${Math.floor(Math.random() * 9000) + 1000} ${['Main', 'Oak', 'Elm', 'Maple', 'Pine'][Math.floor(Math.random() * 5)]} St, ${city}, ${state}`,
+                price: price,
+                beds: bedroom,
+                baths: bathroom,
+                sqft: sqft,
+                city: city,
+                state: state,
+                images: Images[Math.floor(Math.random() * Images.length)],//`https://images.unsplash.com/photo-${[1564013967060, 1570129477992, 1572120481605, 1566073771259, 1564013967060][Math.floor(Math.random() * 5)]}-${[1024, 2048, 4096][Math.floor(Math.random() * 3)]}x${[768, 1536, 3072][Math.floor(Math.random() * 3)]}?w=500&h=400&fit=crop`,
+                badge: badge,
+                liked: false
+            };
+        }
+
+        function generateProperties(count = 12) {
+            const newProperties = [];
+            for (let i = 0; i < count; i++) {
+                newProperties.push(generateProperty());
+            }
+            return newProperties;
+        }
+
+        function renderProperties() {
+            const container = document.getElementById('propertiesContainer');
+            container.innerHTML = '';
+
+            if (filteredProperties.length === 0) {
+                container.innerHTML = '<div class="no-results" style="grid-column: 1 / -1;">No properties found matching your criteria.</div>';
+                return;
+            }
+
+            
+
+            filteredProperties.forEach(property => {
+                
+                const card = document.createElement('div');
+                card.className = 'property-card';
+                card.innerHTML = `
+                    <div class="property-image-container">
+                        <img src="${property.images[0]}" alt="Property" class="property-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23667eea%22 width=%22400%22 height=%22300%22/%3E%3C/svg%3E'">
+                        <div class="property-badge ${getBadgeClass(property.badge)}">${property.badge}</div>
+                        <button class="property-favorite" onclick="event.stopPropagation()">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="property-specs-top">
+                        <div class="spec-item">
+                            <i class="fas fa-home"></i> ${property.beds}
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-bath"></i> ${property.baths}
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-ruler"></i> ${property.sqft.toLocaleString()} SqFt
+                        </div>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-price">$${property.price.toLocaleString()}</div>
+                        <div class="property-fee-text">Plus Additional Fees</div>
+                        <div class="property-address">${property.address}</div>
+                        <div class="property-specs-bottom">
+                            <div class="spec-item">
+                                <i class="fas fa-home"></i> ${property.beds}
+                            </div>
+                            <div class="spec-item">
+                                <i class="fas fa-bath"></i> ${property.baths}
+                            </div>
+                            <div class="spec-item">
+                                <i class="fas fa-ruler"></i> ${property.sqft.toLocaleString()} SqFt
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                card.onclick = function(e){
+                     localStorage.randomProperty = JSON.stringify(property);
+                    location.href = "/homes-for-rent";
+                }
+                container.appendChild(card);
+
+                
+            });
+        }
+
+        function applyFilters() {
+            filteredProperties = allProperties.slice();
+            renderProperties();
+        }
+
+        function handleScroll() {
+            const scrollPosition = window.innerHeight + window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight;
+
+            if (scrollPosition >= pageHeight - 500 && !isLoading) {
+                loadMoreProperties();
+            }
+        }
+
+        function loadMoreProperties() {
+            isLoading = true;
+            document.getElementById('loadingIndicator').style.display = 'block';
+
+            setTimeout(() => {
+                const newProperties = generateProperties(12);
+                allProperties = allProperties.concat(newProperties);
+                applyFilters();
+                document.getElementById('loadingIndicator').style.display = 'none';
+                isLoading = false;
+            }, 500);
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', handleScroll);
+
+        // Initial load
+        allProperties = generateProperties(12);
+        applyFilters();
+    </script>
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ChadMott | Premium Property Rentals</title>
+  <!-- Google Fonts & simple reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1e2a3e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* buttons & links */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #1e4a6b;
+      color: white;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+    }
+
+    .btn-primary:hover {
+      background-color: #0f3b54;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px -8px rgba(0,0,0,0.15);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1.5px solid #cbd5e1;
+      color: #1e2a3e;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: #1e4a6b;
+      background: #f8fafc;
+    }
+
+    /* header / navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: #1e4a6b;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #2c3e4e;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: #1e4a6b;
+    }
+
+    /* hero section */
+    .hero {
+      background: linear-gradient(135deg, #f1f8fe 0%, #e9f2f7 100%);
+      border-radius: 2rem;
+      margin: 20px 0 48px 0;
+      padding: 56px 48px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .hero-badge {
+      background: #d9e9f2;
+      color: #1e4a6b;
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #0f2b38;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #2c4c5e;
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .stat h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1e4a6b;
+    }
+
+    .hero-image {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 28px;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+      object-fit: cover;
+      display: block;
+    }
+
+    /* search / filter bar */
+    .search-section {
+      background: white;
+      border-radius: 80px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+      margin-top: -40px;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 10;
+      padding: 12px 24px;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 8px 20px;
+      border-radius: 60px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .search-group i {
+      color: #6c8e9e;
+      font-size: 1.2rem;
+    }
+
+    .search-group input, .search-group select {
+      border: none;
+      background: transparent;
+      font-size: 0.95rem;
+      padding: 10px 0;
+      width: 100%;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .search-btn {
+      background: #1e4a6b;
+      border: none;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .search-btn:hover {
+      background: #0f3b54;
+    }
+
+    /* featured properties section */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #0f2b38;
+    }
+
+    .section-sub {
+      color: #4b6b7c;
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
+      margin: 40px 0 60px;
+    }
+
+    .property-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+      border: 1px solid #eef2f6;
+    }
+
+    .property-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+      border-color: #cbdde6;
+    }
+
+    .card-img {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .property-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1e4a6b;
+    }
+
+    .price span {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #5f7f90;
+    }
+
+    .property-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 8px 0 6px;
+    }
+
+    .property-location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #5f7f90;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .property-features {
+      display: flex;
+      gap: 16px;
+      margin: 16px 0;
+      border-top: 1px solid #edf2f7;
+      padding-top: 14px;
+      font-size: 0.85rem;
+      color: #2c4e62;
+    }
+
+    .property-features i {
+      width: 18px;
+      color: #1e4a6b;
+    }
+
+    /* why choose us */
+    .why-us {
+      background: #f8fafc;
+      border-radius: 2rem;
+      padding: 64px 48px;
+      margin: 60px 0;
+    }
+
+    .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .feature-item {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      background: #e5f0f7;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+    }
+
+    .feature-icon i {
+      font-size: 2rem;
+      color: #1e4a6b;
+    }
+
+    /* testimonial */
+    .testimonial {
+      background: #ffffff;
+      border-radius: 2rem;
+      border: 1px solid #eef2f8;
+      padding: 48px 40px;
+      margin: 40px 0 60px;
+      text-align: center;
+    }
+
+    .testimonial-text {
+      font-size: 1.3rem;
+      font-style: normal;
+      font-weight: 500;
+      max-width: 780px;
+      margin: 0 auto 24px;
+      color: #1f3e4c;
+      line-height: 1.4;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      margin-top: 8px;
+      color: #1e4a6b;
+    }
+
+    /* CTA banner */
+    .cta-banner {
+      background: linear-gradient(105deg, #1e4a6b 0%, #2a5e7e 100%);
+      border-radius: 2rem;
+      padding: 56px 48px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      margin: 40px 0 60px;
+      color: white;
+    }
+
+    .cta-text h2 {
+      font-size: 1.9rem;
+      margin-bottom: 12px;
+    }
+
+    .cta-text p {
+      opacity: 0.85;
+    }
+
+    .cta-btn {
+      background: white;
+      color: #1e4a6b;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cta-btn:hover {
+      background: #f0f7fc;
+      transform: scale(1.02);
+    }
+
+    /* footer */
+    .footer {
+      border-top: 1px solid #e2edf2;
+      padding: 48px 0 32px;
+      margin-top: 20px;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .footer-col {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .footer-col a {
+      display: block;
+      text-decoration: none;
+      color: #4b6b7c;
+      margin-bottom: 12px;
+      transition: 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: #1e4a6b;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .social-icons a {
+      background: #eef2f8;
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #1e4a6b;
+      font-size: 1.2rem;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 48px;
+      color: #6b8b9c;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 850px) {
+      .container {
+        padding: 0 24px;
+      }
+      .hero {
+        padding: 36px 28px;
+      }
+      .hero-content h1 {
+        font-size: 2.3rem;
+      }
+      .search-section {
+        border-radius: 2rem;
+        padding: 20px;
+      }
+      .search-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-group {
+        width: 100%;
+      }
+      .search-btn {
+        justify-content: center;
+      }
+      .navbar {
+        flex-direction: column;
+      }
+      .why-us, .cta-banner {
+        padding: 40px 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- header -->
+  <div class="navbar">
+    <div class="logo"><span>Chadmott</span> Rentals</div>
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#">Properties</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+      <a href="#" class="btn-outline" style="margin-left: 4px;"><i class="fas fa-user-circle"></i> Sign in</a>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-key"></i>  Find your next home</div>
+      <h1>Rent the perfect space, made effortless</h1>
+      <p>Curated apartments, modern lofts & family homes — flexible leases, premium locations. Discover your next address with Chadmott.</p>
+      <a href="#" class="btn-primary">Explore rentals <i class="fas fa-arrow-right"></i></a>
+      <div class="hero-stats">
+        <div class="stat"><h3>2,400+</h3><span>Happy renters</span></div>
+        <div class="stat"><h3>98%</h3><span>occupancy rate</span></div>
+        <div class="stat"><h3>24/7</h3><span>support</span></div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://placehold.co/600x450/DFEAF1/2C4E62?text=Modern+Living" alt="modern apartment interior" style="background:#d9e4ec; color:#2c4e62;">
+    </div>
+  </div>
+
+  <!-- floating search bar -->
+  <div class="search-section">
+    <div class="search-form">
+      <div class="search-group"><i class="fas fa-map-marker-alt"></i><input type="text" placeholder="City, neighborhood or ZIP"></div>
+      <div class="search-group"><i class="fas fa-bed"></i><select><option>Any bedrooms</option><option>1 bed</option><option>2 beds</option><option>3+ beds</option></select></div>
+      <div class="search-group"><i class="fas fa-dollar-sign"></i><select><option>Max rent</option><option>$1,200</option><option>$1,800</option><option>$2,500</option><option>$3,500+</option></select></div>
+      <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+    </div>
+  </div>
+
+  <!-- featured properties -->
+  <div>
+    <h2 class="section-title">Featured rental properties</h2>
+    <div class="section-sub">Hand-picked homes ready for immediate move-in. Verified listings, transparent pricing.</div>
+  </div>
+
+  <div class="properties-grid">
+    <!-- card 1 -->
+    <div class="property-card">
+      <div class="card-img" style="background-image: url('https://placehold.co/600x400/E9F0F5/2C4E62?text=Sunset+Loft'); background-size: cover;">
+        <div class="property-tag"><i class="fas fa-fire"></i> Just listed</div>
+      </div>
+      <div class="card-content">
+        <div class="price">$2,450 <span>/ month</span></div>
+        <div class="property-title">Downtown Loft with Skyline View</div>
+        <div class="property-location"><i class="fas fa-location-dot"></i> 245 Pearl Street, Manhattan</div>
+        <div class="property-features"><span><i class="fas fa-bed"></i> 2 beds</span> <span><i class="fas fa-bath"></i> 2 baths</span> <span><i class="fas fa-vector-square"></i> 1,280 sqft</span></div>
+        <a href="#" class="btn-outline" style="margin-top: 8px; width: fit-content;">View details <i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <!-- card 2 -->
+    <div class="property-card">
+      <div class="card-img" style="background-image: url('https://placehold.co/600x400/E2EAF0/2C4E62?text=Garden+Suite'); background-size: cover;">
+        <div class="property-tag"><i class="fas fa-leaf"></i> Pet friendly</div>
+      </div>
+      <div class="card-content">
+        <div class="price">$1,895 <span>/ month</span></div>
+        <div class="property-title">The Willow Garden Apartment</div>
+        <div class="property-location"><i class="fas fa-location-dot"></i> 32 Maple Ave, Brooklyn</div>
+        <div class="property-features"><span><i class="fas fa-bed"></i> 1 bed</span> <span><i class="fas fa-bath"></i> 1 bath</span> <span><i class="fas fa-vector-square"></i> 850 sqft</span></div>
+        <a href="#" class="btn-outline" style="margin-top: 8px; width: fit-content;">View details <i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+    <!-- card 3 -->
+    <div class="property-card">
+      <div class="card-img" style="background-image: url('https://placehold.co/600x400/DFEAF1/2C4E62?text=Family+Townhouse'); background-size: cover;">
+        <div class="property-tag"><i class="fas fa-star"></i> Top pick</div>
+      </div>
+      <div class="card-content">
+        <div class="price">$3,200 <span>/ month</span></div>
+        <div class="property-title">Modern Townhouse with Rooftop</div>
+        <div class="property-location"><i class="fas fa-location-dot"></i> 17 Chestnut St, Austin</div>
+        <div class="property-features"><span><i class="fas fa-bed"></i> 3 beds</span> <span><i class="fas fa-bath"></i> 2.5 baths</span> <span><i class="fas fa-vector-square"></i> 2,100 sqft</span></div>
+        <a href="#" class="btn-outline" style="margin-top: 8px; width: fit-content;">View details <i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- why choose us -->
+  <div class="why-us">
+    <h2 class="section-title" style="text-align: center;">Why rent with Chadmott</h2>
+    <div class="section-sub" style="text-align: center; margin-bottom: 24px;">We redefine renting with transparency, quality, and human touch.</div>
+    <div class="features-grid">
+      <div class="feature-item"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><h3>Renter Protection</h3><p>Secure deposits & clear lease terms. No hidden fees.</p></div>
+      <div class="feature-item"><div class="feature-icon"><i class="fas fa-clock"></i></div><h3>Fast Response</h3><p>Maintenance requests solved within 24h, 7 days a week.</p></div>
+      <div class="feature-item"><div class="feature-icon"><i class="fas fa-map-pin"></i></div><h3>Prime Locations</h3><p>Properties near transit, parks & city hotspots.</p></div>
+      <div class="feature-item"><div class="feature-icon"><i class="fas fa-hand-peace"></i></div><h3>Flexible Leases</h3><p>Month-to-month or long-term — we adapt to you.</p></div>
+    </div>
+  </div>
+
+  <!-- testimonial -->
+  <div class="testimonial">
+    <i class="fas fa-quote-left" style="font-size: 2rem; color:#cbdde6; margin-bottom: 16px; display: inline-block;"></i>
+    <div class="testimonial-text">“Chadmott made the entire rental process seamless — from virtual tours to fast approval. We found our dream apartment in under a week. Highly recommended!”</div>
+    <div class="testimonial-author">— Sophia Martinez, verified renter</div>
+    <div style="margin-top: 12px;"><i class="fas fa-star" style="color:#f5b042;"></i><i class="fas fa-star" style="color:#f5b042;"></i><i class="fas fa-star" style="color:#f5b042;"></i><i class="fas fa-star" style="color:#f5b042;"></i><i class="fas fa-star" style="color:#f5b042;"></i></div>
+  </div>
+
+  <!-- cta banner -->
+  <div class="cta-banner">
+    <div class="cta-text">
+      <h2>Ready to find your next home?</h2>
+      <p>Browse hundreds of verified rental listings or schedule a personal tour.</p>
+    </div>
+    <a href="#" class="cta-btn">Start searching <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3 style="margin-bottom: 18px; font-size: 1.5rem;">Chadmott</h3>
+        <p style="color: #5f7f90;">Redefining rental living with integrity and care.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#">Rentals</a>
+        <a href="#">New listings</a>
+        <a href="#">Virtual tours</a>
+        <a href="#">Neighborhood guides</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">FAQs</a>
+        <a href="#">Tenant resources</a>
+        <a href="#">Report maintenance</a>
+        <a href="#">Contact us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms of service</a>
+        <a href="#">Fair housing</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <i class="far fa-copyright"></i> 2026 Chadmott Real Estate Rentals. All rights reserved.
+    </div>
+  </div>
+</div>
+
+<!-- tiny interactive alert (just for demo search button) -->
+<script>
+  document.querySelector('.search-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    alert('🔍 Explore our full listings — contact our agents for personalized matches!');
+  });
+  // make all card btn-outline not refresh page demo
+  document.querySelectorAll('.btn-outline').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      if(btn.getAttribute('href') === '#') e.preventDefault();
+    });
+  });
+  document.querySelector('.btn-primary')?.addEventListener('click', (e) => { e.preventDefault(); alert('✨ Discover exclusive rental properties → contact us today!'); });
+  document.querySelector('.cta-btn')?.addEventListener('click', (e) => { e.preventDefault(); alert('🏡 Browse all available rentals → schedule a tour now'); });
+</script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
