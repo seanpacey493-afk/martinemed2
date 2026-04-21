@@ -473,7 +473,6 @@
                     const { data, error } = await supabase.storage
                         .from('properties')
                         .upload(path, file, { upsert: true });
-                    alert("NOOOO")
                     if (error) throw error;
                     const { data: urlData } = supabase.storage.from('properties').getPublicUrl(path);
                     uploadedUrls.push(urlData.publicUrl);
